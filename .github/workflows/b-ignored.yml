@@ -1,0 +1,19 @@
+name: B
+on:
+  pull_request:
+    types:
+      - ready_for_review
+      - synchronize
+    paths-ignore:
+      - 'b/**'
+
+concurrency:
+  group: ${{ github.workflow }}/${{ github.head_ref || github.ref_name || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: 'echo "No test required"'

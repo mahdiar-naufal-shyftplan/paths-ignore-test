@@ -1,0 +1,24 @@
+name: A
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'a/**'
+  pull_request:
+    types:
+      - ready_for_review
+      - synchronize
+    paths:
+      - 'a/**'
+
+concurrency:
+  group: ${{ github.workflow }}/${{ github.head_ref || github.ref_name || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: 'echo "Test done"'
